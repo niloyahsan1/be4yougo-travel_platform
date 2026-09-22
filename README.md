@@ -3,7 +3,8 @@
 **Before You Go** is an all-in-one smart travel planning and destination discovery platform tailored for seamless travel experiences. It features curated destination guides, interactive trip planners, budget calculators, resort & hotel finders, real-time analytics, and role-based administration.
 
 
-🌐 **Live Website**: [be4yougo.com](https://be4yougo.com)
+## Live Website
+**You can visit the live website here:** [be4yougo.com](https://be4yougo.com)
 
 
 ## Features
@@ -66,5 +67,5 @@ be4yougo/
 - [Niloy Ahsan](https://github.com/niloyahsan1)
 
 
-## 🛡️ License
+## License
 This project is proprietary and confidential. All rights reserved.

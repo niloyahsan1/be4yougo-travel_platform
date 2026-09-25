@@ -15,7 +15,7 @@ const mainNavItems: NavItem[] = [
 ];
 
 const moreNavItems: NavItem[] = [
-  { label: "Hotels", path: "/hotels", icon: <Hotel className="h-4 w-4" /> },
+  { label: "Hotels", path: "/hotels", icon: <Hotel className="h-4 w-4" />, soon: true },
   { label: "Honeymoon", path: "/honeymoon", icon: <Heart className="h-4 w-4" />, soon: true },
   { label: "Bondhu (Friends)", path: "/friends-plan", icon: <Users className="h-4 w-4" />, soon: true },
   { label: "Day Trips", path: "/day-trips", icon: <Compass className="h-4 w-4" />, soon: true },
@@ -65,8 +65,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img src={logoImg} alt="Before You Go" className="h-10 w-10" />
-            <span className="text-base font-bold gradient-text hidden sm:inline">Before You Go</span>
+            <img src={logoImg} alt="Before You Go" className="h-9 w-9 sm:h-10 sm:w-10 object-contain" />
+            <span className="text-sm sm:text-base font-bold gradient-text inline">Before You Go</span>
           </Link>
 
           {/* Desktop Nav */}

@@ -217,14 +217,14 @@ const Booking = () => {
               </div>
 
               {/* Dates */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Check-in Date</label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="outline" className={cn("w-full justify-start text-left", !checkIn && "text-muted-foreground")}>
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {checkIn ? format(checkIn, "PPP") : "Select date"}
+                      <Button variant="outline" className={cn("w-full justify-start text-left h-11 px-3.5", !checkIn && "text-muted-foreground")}>
+                        <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                        <span className="truncate">{checkIn ? format(checkIn, "PPP") : "Select date"}</span>
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -236,9 +236,9 @@ const Booking = () => {
                   <label className="text-sm font-medium text-foreground mb-2 block">Check-out Date</label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="outline" className={cn("w-full justify-start text-left", !checkOut && "text-muted-foreground")}>
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {checkOut ? format(checkOut, "PPP") : "Select date"}
+                      <Button variant="outline" className={cn("w-full justify-start text-left h-11 px-3.5", !checkOut && "text-muted-foreground")}>
+                        <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                        <span className="truncate">{checkOut ? format(checkOut, "PPP") : "Select date"}</span>
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">

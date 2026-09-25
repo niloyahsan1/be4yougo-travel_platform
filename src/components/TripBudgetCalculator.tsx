@@ -70,12 +70,12 @@ const TripBudgetCalculator = ({ initialDest = "bandarban", showDestSwitcher = tr
   const hotels = HOTELS[dest];
   const [hotelIdx, setHotelIdx] = useState(0);
   const [roomIdx, setRoomIdx] = useState(0);
-  const [nights, setNights] = useState(2);
-  const [guests, setGuests] = useState(2);
+  const [nights, setNights] = useState<number | "">(2);
+  const [guests, setGuests] = useState<number | "">(2);
   const [needWash, setNeedWash] = useState(false);
   const [needBal, setNeedBal] = useState(false);
   const [needMeal, setNeedMeal] = useState(false);
-  const [mealPerPerson, setMealPerPerson] = useState(0);
+  const [mealPerPerson, setMealPerPerson] = useState<number | "">("");
   const [gettingKey, setGettingKey] = useState("");
   const [localKey, setLocalKey] = useState("");
 
@@ -102,12 +102,16 @@ const TripBudgetCalculator = ({ initialDest = "bandarban", showDestSwitcher = tr
   const gettingPick = gettingOpts.find((o) => o.key === gettingKey);
   const localPick = localOpts.find((o) => o.key === localKey);
 
-  const hotelTotal = (room?.p ?? 0) * Math.max(1, nights);
-  const mealTotal = mealPerPerson * Math.max(1, nights) * Math.max(1, guests);
-  const gettingTotal = (gettingPick?.price ?? 0) * Math.max(1, guests);
+  const numNights = typeof nights === "number" ? Math.max(0, nights) : 0;
+  const numGuests = typeof guests === "number" ? Math.max(1, guests) : 1;
+  const numMeal = typeof mealPerPerson === "number" ? Math.max(0, mealPerPerson) : 0;
+
+  const hotelTotal = (room?.p ?? 0) * numNights;
+  const mealTotal = numMeal * numNights * numGuests;
+  const gettingTotal = (gettingPick?.price ?? 0) * numGuests;
   const localTotal = localPick?.price ?? 0;
   const grand = hotelTotal + mealTotal + gettingTotal + localTotal;
-  const perPerson = grand / Math.max(1, guests);
+  const perPerson = grand / numGuests;
 
   return (
     <div className="space-y-5">
@@ -193,25 +197,42 @@ const TripBudgetCalculator = ({ initialDest = "bandarban", showDestSwitcher = tr
             <label className="block">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Nights</span>
               <input
-                type="number" min={1} value={nights}
-                onChange={(e) => setNights(Math.max(1, parseInt(e.target.value) || 1))}
+                type="number"
+                min={1}
+                value={nights}
+                placeholder="2"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setNights(val === "" ? "" : Math.max(1, parseInt(val) || 1));
+                }}
                 className="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </label>
             <label className="block">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Guests</span>
               <input
-                type="number" min={1} value={guests}
-                onChange={(e) => setGuests(Math.max(1, parseInt(e.target.value) || 1))}
+                type="number"
+                min={1}
+                value={guests}
+                placeholder="2"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setGuests(val === "" ? "" : Math.max(1, parseInt(val) || 1));
+                }}
                 className="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </label>
             <label className="block">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Meal ৳/person/night</span>
               <input
-                type="number" min={0} value={mealPerPerson}
-                onChange={(e) => setMealPerPerson(Math.max(0, parseInt(e.target.value) || 0))}
+                type="number"
+                min={0}
+                value={mealPerPerson}
                 placeholder="e.g. 800"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setMealPerPerson(val === "" ? "" : Math.max(0, parseInt(val) || 0));
+                }}
                 className="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </label>
@@ -258,12 +279,24 @@ const TripBudgetCalculator = ({ initialDest = "bandarban", showDestSwitcher = tr
           <div className="text-xs text-blue-100 mb-5">≈ {fmt(Math.round(perPerson))} per person</div>
 
           <div className="space-y-2 text-sm border-t border-blue-500 pt-4">
-            <Line label={`Hotel (${nights} night${nights > 1 ? "s" : ""})`} sub={room?.t} value={hotelTotal} />
+            <Line
+              label={`Hotel (${numNights} night${numNights === 1 ? "" : "s"})`}
+              sub={room?.t}
+              value={hotelTotal}
+            />
             {mealTotal > 0 && (
-              <Line label="Meals" sub={`${guests} × ${nights} × ৳${mealPerPerson}`} value={mealTotal} />
+              <Line
+                label="Meals"
+                sub={`${numGuests} guest${numGuests === 1 ? "" : "s"} × ${numNights} night${numNights === 1 ? "" : "s"} × ৳${numMeal}`}
+                value={mealTotal}
+              />
             )}
             {gettingPick && (
-              <Line label="Getting there" sub={`${gettingPick.label} × ${guests}`} value={gettingTotal} />
+              <Line
+                label="Getting there"
+                sub={`${gettingPick.label} × ${numGuests} guest${numGuests === 1 ? "" : "s"}`}
+                value={gettingTotal}
+              />
             )}
             {localPick && (
               <Line label="Local transport" sub={localPick.label} value={localTotal} />

@@ -86,14 +86,14 @@ const BookingModal = ({ hotel, onClose }: BookingModalProps) => {
             </div>
 
             {/* Dates */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-foreground mb-1.5 block">Check-in</label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className={cn("w-full justify-start text-left text-xs", !checkIn && "text-muted-foreground")}>
-                      <CalendarIcon className="mr-1.5 h-3.5 w-3.5" />
-                      {checkIn ? format(checkIn, "MMM dd") : "Select"}
+                    <Button variant="outline" className={cn("w-full justify-start text-left text-xs h-10 px-3 truncate", !checkIn && "text-muted-foreground")}>
+                      <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                      <span className="truncate">{checkIn ? format(checkIn, "MMM dd, yyyy") : "Select date"}</span>
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -105,9 +105,9 @@ const BookingModal = ({ hotel, onClose }: BookingModalProps) => {
                 <label className="text-xs font-medium text-foreground mb-1.5 block">Check-out</label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className={cn("w-full justify-start text-left text-xs", !checkOut && "text-muted-foreground")}>
-                      <CalendarIcon className="mr-1.5 h-3.5 w-3.5" />
-                      {checkOut ? format(checkOut, "MMM dd") : "Select"}
+                    <Button variant="outline" className={cn("w-full justify-start text-left text-xs h-10 px-3 truncate", !checkOut && "text-muted-foreground")}>
+                      <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                      <span className="truncate">{checkOut ? format(checkOut, "MMM dd, yyyy") : "Select date"}</span>
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">

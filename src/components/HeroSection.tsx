@@ -10,7 +10,7 @@ const slides = [
     label: "Sajek Valley",
   },
   {
-    image: "https://images.unsplash.com/photo-1619112093525-1c50e22c1785?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80",
     label: "Cox's Bazar",
   },
   {
@@ -35,23 +35,25 @@ const HeroSection = () => {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* Slides */}
-      <AnimatePresence mode="wait">
+      {/* Slides with smooth crossfade */}
+      {slides.map((slide, i) => (
         <motion.div
-          key={current}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0"
+          key={slide.label}
+          initial={false}
+          animate={{
+            opacity: i === current ? 1 : 0,
+            scale: i === current ? 1 : 1.08,
+          }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="absolute inset-0 pointer-events-none"
         >
           <img
-            src={slides[current].image}
-            alt={slides[current].label}
-            className="absolute inset-0 w-full h-full object-cover"
+            src={slide.image}
+            alt={slide.label}
+            className="w-full h-full object-cover"
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
@@ -86,15 +88,15 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
-          className="flex gap-4"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none"
         >
-          <Link to="/destinations">
-            <Button size="lg" className="rounded-full px-8 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg">
+          <Link to="/destinations" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto rounded-full px-8 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg">
               Explore Destinations <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/compare">
-            <Button size="lg" className="rounded-full px-8 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white shadow-lg border border-white/20">
+          <Link to="/compare" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto rounded-full px-8 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white shadow-lg border border-white/20">
               Compare Places
             </Button>
           </Link>

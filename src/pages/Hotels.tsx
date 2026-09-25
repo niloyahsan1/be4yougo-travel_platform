@@ -42,9 +42,14 @@ const Hotels = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
               Choose Your <span className="gradient-text">Destination</span>
             </h1>
-            <p className="text-muted-foreground mb-10">
-              Select a destination to explore hotels & accommodations
-            </p>
+            <div className="flex flex-wrap items-center gap-2 mb-10">
+              <p className="text-muted-foreground">
+                Select a destination to explore verified hotels & accommodations.
+              </p>
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                Online Booking Coming Soon
+              </span>
+            </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {destinations.map((dest, i) => (
                 <motion.div
@@ -213,18 +218,20 @@ const Hotels = () => {
                         <p className="text-base font-bold text-primary">{hotel.priceRange}</p>
                         <p className="text-[9px] text-muted-foreground italic">Indicative — confirm with hotel</p>
                       </div>
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="rounded-full px-4 text-xs"
-                          onClick={() => setBookingHotel({ ...hotel, destination: selectedDest.name, destinationId: selectedDest.id })}
-                        >
-                          Quick Book
-                        </Button>
-                        <Link to={`/booking?hotel=${encodeURIComponent(hotel.name)}&dest=${selectedDest.id}`}>
-                          <Button size="sm" className="rounded-full px-5 shadow-md">Book Now</Button>
-                        </Link>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="rounded-full px-4 text-xs"
+                            onClick={() => setBookingHotel({ ...hotel, destination: selectedDest.name, destinationId: selectedDest.id })}
+                          >
+                            Book Room
+                          </Button>
+                        </div>
+                        <span className="text-[9px] font-semibold text-amber-600 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-900">
+                          Direct Booking Coming Soon
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { Plane } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 import { Link } from "react-router-dom";
 
 const Footer = () => (
@@ -7,7 +7,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-8">
         <div>
           <Link to="/" className="flex items-center gap-2 mb-3">
-            <Plane className="h-5 w-5 text-primary" />
+            <img src={logoImg} alt="Before You Go" className="h-8 w-8 object-contain" />
             <span className="font-bold gradient-text">Before You Go</span>
           </Link>
           <p className="text-sm text-muted-foreground">
@@ -33,7 +33,12 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-foreground mb-3 text-sm">Book</h4>
           <div className="space-y-2">
-            <Link to="/hotels" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Book Hotels</Link>
+            <Link to="/hotels" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <span>Hotel Booking</span>
+              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                Soon
+              </span>
+            </Link>
             <Link to="/transport" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Buy Bus Tickets</Link>
             <Link to="/transport" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Train Tickets</Link>
             <Link to="/transport" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Flight Tickets</Link>

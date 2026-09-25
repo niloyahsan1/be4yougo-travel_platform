@@ -6,7 +6,7 @@ const items = [
     bn: "পহেলা বৈশাখ",
     en: "Pohela Boishakh",
     desc: "The Bengali New Year — vibrant processions, panta-ilish, and the unmistakable Mongol Shobhajatra.",
-    image: "https://images.unsplash.com/photo-1602407294553-6ac9170d3a4d?w=800",
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
     accent: "from-rose-500/80 to-orange-500/80",
   },
   {
